@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
-  resources :users
-  #resource :users, only: [:create]
+  #resources :users
+  resources :users, only: [:create, :update, :index]
 
   post "/login", to: "auth#login"
    get "/auto_login", to: "auth#auto_login"

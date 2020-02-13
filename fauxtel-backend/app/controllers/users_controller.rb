@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
-    skip_before_action :require_login, only: [:create]
+    skip_before_action :require_login, only: [:create, :update, :index]
+
+    def index
+        @users = User.all
+        render json: @users
+    end
 
     def create
         user = User.create(user_params)
@@ -8,9 +13,15 @@ class UsersController < ApplicationController
             token = encode_token(payload) #payload object passed into encode_token method (def in application_controller)
             render json: {user: user, jwt: token}
         else
-            render json: {errors: user.errors.full_messages}, status :not_acceptable
+            data = { errors: [] }
+            data[:errors] << user.errors.full_messages
+            render json: data, status: :unprocessable_entity
+            #render json: {errors: user.errors.full_messages}, status :not_acceptable
 
         end 
+    end
+
+    def update
     end
 
     private
