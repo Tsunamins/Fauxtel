@@ -33,7 +33,7 @@ function UserAuths() {
 
   const handleAuthClick = () => {
     const token = localStorage.getItem("token")
-    fetch(`http://localhost:3000/user_is_authed`, {
+    fetch(`http://localhost:3000/user_authorized`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
