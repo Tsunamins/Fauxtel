@@ -1,68 +1,63 @@
-import React, {useState, useEffect} from 'react';
-import Header from '../components/Header'
-import SignUpForm from '../components/SignUpForm';
-import LoginForm from '../components/LoginForm'
+import React, { Component } from 'react';
 
-function UserAuths() {
-  const [user, setUser] = useState({})
-  const [form, setForm] = useState("")
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    if(token){
-      fetch(`http://localhost:3000/auto_login`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then(resp => resp.json())
-      .then(data => {
-        setUser(data)
-        // console.log(data)
-      })
-    }
-  }, [])
-
-  const handleLogin = (user) => {
-    setUser(user)
+class UserAuths extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      isLoggedIn: false,
+      user: {}
+     };
   }
 
-  const handleFormSwitch = (input) => {
-    setForm(input)
+  componentDidMount() {
+    this.loginStatus()
   }
 
-  const handleAuthClick = () => {
-    const token = localStorage.getItem("token")
-    fetch(`http://localhost:3000/user_authorized`, {
-      headers: {
-        "Authorization": `Bearer ${token}`
+
+
+  loginStatus = () => {
+    return fetch('http://localhost:3000/logged_in', {
+      credentials: 'include'
+      })
+    .then(response => {
+      if (response.data.logged_in) {
+        this.handleLogin(response)
+      } else {
+        this.handleLogout()
       }
     })
-    .then(resp => resp.json())
-    .then(data => console.log(data))
+    .catch(error => console.log('api errors:', error))
   }
 
-  console.log(user)
-
-  const renderForm = () => {
-    switch(form){
-      case "login":
-        return <LoginForm handleLogin={handleLogin}/>
-        break;
-      default:
-        return <SignUpForm handleLogin={handleLogin}/>
-    }
+  handleLogin = (data) => {
+    this.setState({
+      isLoggedIn: true,
+      user: data.user
+    })
   }
-  return (
-    <div className="App">
-        <Header handleFormSwitch={handleFormSwitch}/>
-        {
-          renderForm()
-        }
-        <button onClick={handleAuthClick} className="ui button">Access Authorized Route</button>
-        <button onClick={handleAuthClick} className="ui button">Access Authorized Route</button>
-    </div>
-  );
+
+  handleLogout = () => {
+    this.setState({
+    isLoggedIn: false,
+    user: {}
+    })
+  }
+
+  render() {
+    return (
+      <div>
+         <Router>
+          <Switch>
+            <Route exact path='/' component={}/>
+            <Route exact path='/login' component={}/>
+            <Route exact path='/signup' component={}/>
+          </Switch>
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default UserAuths;
