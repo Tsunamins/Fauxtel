@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Header from '../components/Header'
-import SignInForm from '../components/SignInForm';
+import SignUpForm from '../components/SignUpForm';
 import LoginForm from '../components/LoginForm'
 
 function UserAuths() {
@@ -50,7 +50,7 @@ function UserAuths() {
         return <LoginForm handleLogin={handleLogin}/>
         break;
       default:
-        return <SignInForm handleLogin={handleLogin}/>
+        return <SignUpForm handleLogin={handleLogin}/>
     }
   }
   return (
@@ -59,6 +59,7 @@ function UserAuths() {
         {
           renderForm()
         }
+        <button onClick={handleAuthClick} className="ui button">Access Authorized Route</button>
         <button onClick={handleAuthClick} className="ui button">Access Authorized Route</button>
     </div>
   );
