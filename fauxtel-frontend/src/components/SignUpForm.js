@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 function SignUpForm(props) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("")
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
@@ -10,6 +11,10 @@ function SignUpForm(props) {
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value)
+    }
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value)
     }
 
     const handleSubmit = (e) => {
@@ -22,7 +27,8 @@ function SignUpForm(props) {
             },
             body: JSON.stringify({
                 username,
-                password
+                password,
+                email
             })
         })
         .then(resp => resp.json())
@@ -32,6 +38,7 @@ function SignUpForm(props) {
         })
         setUsername("")
         setPassword("")
+        setEmail("")
     }
     const formDivStyle = {
         margin: "auto",
@@ -55,68 +62,10 @@ function SignUpForm(props) {
 
                 <div className="field">
                     <label>Email</label>
-                    <input value={email} onChange={handlePasswordChange} type="email" placeholder="Email"/>
+                    <input value={email} onChange={handleEmailChange} type="email" placeholder="Email"/>
                 </div>
 
-                <div className="field">
-                    <label>First Name</label>
-                    <input value={first_name} onChange={handlePasswordChange} type="text" placeholder="First Name"/>
-                </div>
-
-                <div className="field">
-                    <label>Last Name</label>
-                    <input value={last_name} onChange={handlePasswordChange} type="text" placeholder="Last Name"/>
-                </div>
-
-                <div className="field">
-                    <label>Birthday</label>
-                    <input value={birthday} onChange={handlePasswordChange} type="date"/>
-                </div>
-
-                <div className="field">
-                    <label>Phone Number</label>
-                    <input value={phone_number} onChange={handlePasswordChange} type="text" placeholder="Format 1-123-123-1234"/>
-                </div>
-
-                <div className="field">
-                    <label>Address</label>
-                    <input value={address} onChange={handlePasswordChange} type="text" placeholder="Address"/>
-                </div>
-
-                <div className="field">
-                    <label>Apt or Suite Number</label>
-                    <input value={apt_suite_number} onChange={handlePasswordChange} type="number" placeholder="Apt or Suite Number"/>
-                </div>
-
-                <div className="field">
-                    <label>City</label>
-                    <input value={city} onChange={handlePasswordChange} type="string" placeholder="City"/>
-                </div>
-
-                <div className="field">
-                    <label>State</label>
-                    <input value={state} onChange={handlePasswordChange} type="string" placeholder="State"/>
-                </div>
-
-                <div className="field">
-                    <label>Zip Code</label>
-                    <input value={zip_code} onChange={handlePasswordChange} type="number" placeholder="Zip Code"/>
-                </div>
-
-                <div className="field">
-                    <label>Favorite Food</label>
-                    <input value={favorite_food} onChange={handlePasswordChange} type="string" placeholder="i.e. Steak"/>
-                </div>
-
-                <div className="field">
-                    <label>Favorite Drink</label>
-                    <input value={favorite_drink} onChange={handlePasswordChange} type="string" placeholder="i.e. Moscow Mule"/>
-                </div>
-
-                <div className="field">
-                    <label>Favorite Activity</label>
-                    <input value={favorite_activity} onChange={handlePasswordChange} type="string" placeholder="i.e. Wind Surfing"/>
-                </div>
+                
 
                 
                 
