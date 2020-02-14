@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
 
     #will generate token from .encode
     def encode_token(payload)
-        JWT.encode(payload, 'hotel_secret') #encode a JWT build in func params are (payload, and a string repr secret)
+        JWT.encode(payload, Rails.application.secrets.secret_key_base) #encode a JWT build in func params are (payload, and a string repr secret)
     end
 
     #checks for requests with headers of authorization, used in decoded_token below
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::API
         if auth_header
             token = auth_header.split(' ')[1] #split here bc will return a string with more than jwt-token, but only jwt-token is needed
             begin
-                JWT.decode(token, 'hotel_secret', true, algorithm: 'HS256')
+                JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256')
             rescue JWT::DecodeError
                 []
             end
