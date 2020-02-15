@@ -39,8 +39,7 @@ class Signup extends Component {
         body: JSON.stringify({
             username,
             email,
-            password,
-            password_confirmation
+            password
         })
     })
     .then(response => {

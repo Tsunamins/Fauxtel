@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import SignInOptions from './SignInOptions'
-import Login from '../components/registrations/Login'
-import Signup from '../components/registrations/Signup'
+import Login from '../components/Login'
+import Signup from '../components/SignUp'
 
 class UserAuths extends Component {
   constructor(props) {
@@ -51,14 +51,14 @@ class UserAuths extends Component {
   render() {
     return (
       <div>
-         <Router>
+         
           <Switch>
-            <Route path='/' render={props => (<SignInOptions {...props} loggedInStatus={this.state.isLoggedIn} />)} />
-            <Route path='/login' render={props => (<Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn} />)} />
+            <Route path='/' render={(routerProps) => (<SignInOptions {...routerProps} loggedInStatus={this.props.isLoggedIn} />)} />
+            <Route path='/login' render={(routerProps) => (<Login {...routerProps} handleLogin={this.handleLogin} loggedInStatus={this.props.isLoggedIn} />)} />
             <Route path='/signup' render={props => (<Signup {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn} /> )} />
             <Route path='/' render={props => (<SignInOptions {...props} handleLogout={this.handleLogout}  loggedInStatus={this.state.isLoggedIn}/>)} />
           </Switch>
-        </Router>
+        
       </div>
     );
   }

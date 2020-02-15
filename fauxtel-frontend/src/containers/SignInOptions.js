@@ -1,9 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+
 const SignInOptions = (props) => {
 
   const handleClick = () => {
-    axios.delete('http://localhost:3000/logout', {
+    return fetch('http://localhost:3000/logout', {
       method: "DELETE",
 
   })
